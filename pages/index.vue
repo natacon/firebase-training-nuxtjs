@@ -9,12 +9,17 @@
         <label>Password</label>
         <input type="password" class="form-control" name="password" v-model="password">
       </div>
-      <button class="btn btn-primary">Login</button>
+      <button class="btn btn-primary">Sign in</button>
     </form>
 
     <div v-if="message" v-bind:class="{alert: error, 'alert-danger': error}">
       {{ message }}
     </div>
+
+    <div>
+      <router-link to="/signUp">Create account</router-link>
+    </div>
+
   </div>
 </template>
 
@@ -24,7 +29,7 @@ import firebase from "firebase";
 import UserCredential = firebase.auth.UserCredential;
 
 @Component
-export default class Users extends Vue {
+export default class SignIn extends Vue {
   private email: string   = ''
   private password: string = ''
   private user: firebase.User | unknown = null

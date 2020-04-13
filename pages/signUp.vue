@@ -18,6 +18,11 @@
         <li>{{ error.message }}</li>
       </ul>
     </div>
+
+    <div>
+      <router-link to="/">Sing In</router-link>
+    </div>
+
   </div>
   
 </template>
