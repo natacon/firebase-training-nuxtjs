@@ -20,7 +20,7 @@
     </div>
 
     <div>
-      <router-link to="/">Sing In</router-link>
+      <nuxt-link to="/">Sing In</nuxt-link>
     </div>
 
   </div>

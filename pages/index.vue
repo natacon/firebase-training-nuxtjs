@@ -17,7 +17,7 @@
     </div>
 
     <div>
-      <router-link to="/signUp">Create account</router-link>
+      <nuxt-link to="/signUp">Create account</nuxt-link>
     </div>
 
   </div>
@@ -43,6 +43,7 @@ export default class SignIn extends Vue {
           this.user = response.user
           this.message = 'Login successfully!'
           this.error = null
+          this.$router.push('/home')
         })
         .catch((error) => {
           this.error = error
