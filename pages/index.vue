@@ -19,6 +19,12 @@
     <div>
       <nuxt-link to="/signUp">Create account</nuxt-link>
     </div>
+<!--    <div>-->
+<!--      {{ $store.state }}-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      {{ $data }}-->
+<!--    </div>-->
 
   </div>
 </template>
@@ -32,15 +38,21 @@ import UserCredential = firebase.auth.UserCredential;
 export default class SignIn extends Vue {
   private email: string   = ''
   private password: string = ''
-  private user: firebase.User | unknown = null
   private message: string = ''
   private error: any = null
 
   signIn () {
     console.log('email=%s, password=%s', this.email, this.password)
+
+    // ログイン状態でVuexを使うのをやめる
+    // this.$store.dispatch('signIn/signIn', {email: this.email, password: this.password})
+    //     .catch((error) => {
+    //       this.error = error
+    //       this.message = error.message
+    //     })
+
     firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-        .then((response: UserCredential) => {
-          this.user = response.user
+        .then(() => {
           this.message = 'Login successfully!'
           this.error = null
           this.$router.push('/home')
@@ -49,6 +61,18 @@ export default class SignIn extends Vue {
           this.error = error
           this.message = error.message
         })
+
+    // actionは非同期で実行されてエラーを補足できないのでstateを確認して判断する
+    // FIXME: 状態変更が行われるタイミングを待たないとこっちが先に評価されてログインできない
+    // if (this.isAuthenticated()) {
+    // } else {
+    //   this.message = '認証に失敗したよ'
+    // }
+
+  }
+
+  isAuthenticated () {
+    return this.$store.getters['signIn/isAuthenticated']
   }
 }
 </script>
